@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Basic Linked List Operations</title>
+<meta charset="UTF-8">
+</head>
+
+<body>
+<h2>
+      Basic Operations on a Singly-Linked Lists
+</h2>
+
+<p>
+A Linked List is a collection of Nodes which are <em>linked</em> to each other by references or pointers.
+</p>
+
+<p>
+A singly-linked list contains Nodes which have a reference or pointer to the Node that follows and some data.
+</p>
+
+<h3>
+Output
+</h3>
+
+<ul id="output"></ul>
+<script type="text/javascript">
+
+        //Node Constructor
+        function Node(next, data) {
+        // Pointer to the next Node.
+            this.next = next;
+            // Data
+            this.data = data;
+        }
+
+        // Head of the List.
+        var head = null;
+
+        function insertInFront(head, data) {
+            var newNode = new Node(null, data);
+            if (!newNode) {
+                return false;
+            }
+            // The new Node points to the head of the list.
+            newNode.next = this.head;
+            // newNode becomes the head of the list.
+            this.head = newNode;
+            return true;
+        }
+
+        function find(head, data) {
+            while (head != null && head.data != data) {
+                head = head.next;
+            }
+            if(head == null){
+                throw "Could not find the Node containing the given data.";
+            }
+            else {
+            return head;
+            }
+        }
+        
+       function deleteNode(head, data){
+           var current = head;
+           // Delete head if it contains the given data.
+           if (data == head.data) {
+               head = current.next;
+               return true;
+           }
+           while (current) {
+           if(current.next.data == data){
+               current.next = current.next.next;
+               return true;
+           }
+           current = current.next;
+       }
+           return false;
+   }
+
+   var first = new Node(null, 20);
+   var second = new Node(null, 30);
+   var third = new Node(null, 40);
+   var fourth = new Node(null, 50);
+
+   first.next = second;
+   second.next = third;
+   third.next = fourth;
+   head = first;
+
+   // A function to write in the browser.
+
+   function write(output) {
+       var li = document.createElement("li");
+       li.appendChild(document.createTextNode(output));
+       document.getElementById("output").appendChild(li);
+   }
+
+   write("head.data is " + head.data);
+   insertInFront(head, 10);
+   write("head.data after insertInFront(head, 10) is " + head.data);
+   write("data of the next node is " + head.next.data);
+   write("deleteNode(head, 50) : " + deleteNode(head, 50));
+   //The Node referenced by the variable "third" becomes the last node.
+   // So third.next should be null.
+   write("third.next is : " + third.next);
+   
+
+    </script>
+</body>
+</html>
