@@ -42,7 +42,7 @@ Output
                 return false;
             }
             // The new Node points to the head of the list.
-            newNode.next = this.head;
+            newNode.next = head;
             // newNode becomes the head of the list.
             this.head = newNode;
             return true;
@@ -64,7 +64,7 @@ Output
            var current = head;
            // Delete head if it contains the given data.
            if (data == head.data) {
-               head = current.next;
+               this.head = current.next;
                return true;
            }
            while (current) {
@@ -103,6 +103,7 @@ Output
    //The Node referenced by the variable "third" becomes the last node.
    // So third.next should be null.
    write("third.next is : " + third.next);
+   write("find(head, 30): data of the found element is " + find(head, 30).data);
 
 //Output
     // head.data is 20
@@ -110,7 +111,7 @@ Output
     // data of the next node is 20
     // deleteNode(head, 50) : true
     // third.next is : null
-   
+    // find(head, 30): data of the found element is 30
 
     </script>
 </body>
