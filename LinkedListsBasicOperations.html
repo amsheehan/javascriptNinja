@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+	<!DOCTYPE html>
 <html>
 <head>
 <title>Basic Linked List Operations</title>
@@ -37,19 +37,15 @@ Output
         var head = null;
 
         function insertInFront(head, data) {
-            var newNode = new Node(null, data);
-            if (!newNode) {
-                return false;
-            }
+             var newNode = new Node(null, data);
             // The new Node points to the head of the list.
             newNode.next = head;
-            // newNode becomes the head of the list.
-            this.head = newNode;
-            return true;
+            // newNode becomes the head of the list and is returned.
+            return newNode;
         }
 
         function find(head, data) {
-            while (head != null && head.data != data) {
+             while (head != null && head.data != data) {
                 head = head.next;
             }
             if(head == null){
@@ -87,31 +83,50 @@ Output
    third.next = fourth;
    head = first;
 
-   // A function to write in the browser.
+//Tests
 
-   function write(output) {
-       var li = document.createElement("li");
-       li.appendChild(document.createTextNode(output));
-       document.getElementById("output").appendChild(li);
-   }
-
-   write("head.data is " + head.data);
-   insertInFront(head, 10);
-   write("head.data after insertInFront(head, 10) is " + head.data);
-   write("data of the next node is " + head.next.data);
-   write("deleteNode(head, 50) : " + deleteNode(head, 50));
+   console.log(head);
+   head = insertInFront(head, 10);
+   console.log(head);
+   console.log(head.next);
+   console.log(deleteNode(head, 50));
    //The Node referenced by the variable "third" becomes the last node.
    // So third.next should be null.
-   write("third.next is : " + third.next);
-   write("find(head, 30): data of the found element is " + find(head, 30).data);
+   console.log(third.next);
+   console.log(deleteNode(head, 10));
+   console.log(head);
+   try {
+   console.log(find(head, 30));
+   }
+   catch (e) {
+   console.log(e);
+   }
+
+try {    
+console.log(find(head, 2013));
+}
+catch (e) {    
+console.log(e);
+}
 
 //Output
-    // head.data is 20
-    // head.data after insertInFront(head, 10) is 10
-    // data of the next node is 20
-    // deleteNode(head, 50) : true
-    // third.next is : null
-    // find(head, 30): data of the found element is 30
+//({next:{next:{next:null, data:40}, data:30}, data:20})
+
+//({next:{next:{next:{next:null, data:40}, data:30}, data:20}, data:10})
+
+//({next:{next:{next:null, data:40}, data:30}, data:20})
+
+//true
+
+//null
+
+//true
+
+//({next:{next:{next:null, data:40}, data:30}, data:20})
+
+//({next:{next:null, data:40}, data:30})
+
+//Could not find the Node containing the given data.
 
     </script>
 </body>
