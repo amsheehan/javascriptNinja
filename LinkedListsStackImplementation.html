@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Linked Lists Stack Implementation</title>
+<meta charset="UTF-8">
+</head>
+
+<body>
+<h2>Linked Lists Stack Implementation</h2>
+<p>
+A stack implementation of a linked list consists of nodes placed on top of each other.
+</p>
+<p>
+Please open the console to see the output.
+</p>
+<script type="text/javascript">
+    //Node Constructor
+    function Node(next, data) {
+        // Pointer to the next Node.
+        this.next = next;
+        // Data
+        this.data = data;
+    }
+
+    // Head of the List.
+    var head = null;
+
+    // The push() method pushes an object to the top of the stack.
+    function push(head, data) {
+        var newNode = new Node(null, data);
+        if (!newNode) {
+            return false;
+        }
+        // newNode points to the old head and becomes the new head.
+        newNode.next = head;
+        this.head = newNode;
+        return true;
+    }
+
+    // The pop() method removes and returns an object from the top of the stack.
+
+    function pop(head) {
+        if (head == null) {
+            return false;
+        }
+        this.head = head.next;
+        return head;
+    }
+
+    // The deletestack function traverses the stack and removes each Node.
+
+    function deleteStack(head) {
+        var next;
+        while (head) {
+            next = head.next;
+            this.head = next;
+        }
+    }
+
+    // Create the stack.
+    push(head, "ThirdNode");
+    push(head, "SecondNode");
+    push(head, "FirstNode");
+
+
+
+    //Test
+    console.log(head);
+    // Push a new object to the top of the stack.
+    console.log(push(head, "newNode"));
+    // head should point to the Node with "newNode" as it's data.
+    console.log(head);
+    // Pop the Node with "newNode".
+    console.log(pop(head));
+    // head now points to the the Node which has data "FirstNode".
+    console.log(head);
+
+//Output
+//({next:{next:{next:null, data:"ThirdNode"}, data:"SecondNode"}, data:"FirstNode"})
+//true
+//({next:{next:{next:{next:null, data:"ThirdNode"}, data:"SecondNode"}, data:"FirstNode"}, data:"newNode"})
+//({next:{next:{next:{next:null, data:"ThirdNode"}, data:"SecondNode"}, data:"FirstNode"}, data:"newNode"})
+//({next:{next:{next:null, data:"ThirdNode"}, data:"SecondNode"}, data:"FirstNode"})
+
+
+</script>
+</body>
+</html>
