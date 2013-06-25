@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Basic Linked List Operations</title>
+<meta charset="UTF-8">
+</head>
+
+<body>
+<h2>
+Maintain the Tail Pointer of a Linked List
+</h2>
+<p>
+<em>head</em> and <em>tail</em> are global pointers to the first and last elements of a singly-linked list of integers.
+</p>
+<p> 
+The following functions <em>remove</em> and <em>insertAfter</em> keep the <em>head</em> and <em>tail</em> pointers current.
+</p>
+<p>
+Please open the browser console to view the output.
+</p>
+<script type="text/javascript">
+    //Node Constructor
+    function Node(next, data) {
+        // Pointer to the next Node.
+        this.next = next;
+        // Data
+        this.data = data;
+    }
+
+    // Head of the List.
+    var head = null;
+    // Tail of the list
+    var tail = null;
+
+    function remove(data) {
+        var current = head;
+        if(!data){
+            return false;
+        }
+        if (head.data == data) {
+            this.head = current.next;
+            //If the list contains only one Node.
+            if (!this.head) {
+                this.tail = null;
+            }
+            return true;
+        }
+        while (current) {
+            
+            if (current.next.data == data) {
+                current.next = current.next.next;
+                if (current.next == null) {
+                    this.tail = current;
+                   }
+                return true;
+            }
+            current = current.next;
+            }
+        return false;
+    }
+
+    function insertAfter(aNode, data) {
+        var newNode = null;
+        var current = head;
+        newNode = new Node(null, data);
+        if (!newNode) {
+            return false;
+        }
+        //Insert at the begining if aNode is null.
+        if (!aNode) {
+            newNode.next = head;
+            this.head = newNode;
+            //If the list was empty
+            if (!tail) {
+                this.tail = newNode;
+            }
+            return true;
+        }
+        while (current) {
+            if (current == aNode) {
+                newNode.next = current.next;
+                current.next = newNode;
+                //Inserting at the end of the list.
+                if (!newNode.next) {
+                    this.tail = newNode;
+                }
+                return true;
+            }
+            current = current.next;
+        }
+        //Insert position not found, return failure.
+        newNode = null;
+        return false;
+    }
+
+    //Create a List.
+    var first = new Node(null, 10);
+    var second = new Node(null, 20);
+    var third = new Node(null, 30);
+    var fourth = new Node(null, 40);
+    var fifth = new Node(null, 50);
+    var sixth = new Node(null, 60);
+
+    first.next = second;
+    second.next = third;
+    third.next = fourth;
+    fourth.next = fifth;
+    fifth.next = sixth;
+
+    head = first;
+    tail = sixth;
+
+    //Test
+    console.log(head);
+    console.log(insertAfter(null, 5));
+    //new head should contain 5
+    console.log(head);
+    console.log(insertAfter(sixth, 70));
+    //new tail should contain 70
+    console.log(tail);
+    console.log(remove(5));
+    //new head should contain 10
+    console.log(head);
+    console.log(remove(70));
+    //new tail should contain 60
+    console.log(tail);
+
+//Output
+//({next:{next:{next:{next:{next:{next:null, data:60}, data:50}, data:40}, data:30}, data:20}, data:10})
+//true
+//({next:{next:{next:{next:{next:{next:{next:null, data:60}, data:50}, data:40}, data:30}, data:20}, data:10}, data:5})
+//true
+//({next:null, data:70})
+//true
+//({next:{next:{next:{next:{next:{next:null, data:60}, data:50}, data:40}, data:30}, data:20}, data:10})
+//true
+//{next:null, data:60})
+
+</script>
+</body>
+</html>
