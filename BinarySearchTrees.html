@@ -1,0 +1,196 @@
+!DOCTYPE html>
+<html>
+<head>
+<title>Binary Search Trees</title>
+<meta charset="UTF-8">
+</head>
+
+<body>
+<h2>
+Binary Search Trees
+</h2>
+<p>
+A tree is made up of Nodes, with zero, one, or more references to other nodes. Each Node has only one reference from another Node.
+</p>
+<p>
+In a Binary Search Tree, each Node has no more than two Childres, <em>left</em> and <em>right</em>. The value held by a Node's <em>left</em> 
+child is less than or equal to it's own value. The value held by a Node's <em>right</em> child is greater or equal to the Node's own value. 
+</p>
+    <script type="text/javascript">
+/* Here's an example of a Binary Tree.
+
+                              22
+                            /    \
+                           10     24
+                          /  \
+                         6   14
+                             / \
+                            12  16 
+*/
+    //Node Constructor
+        function Node(data, left, right) {
+            this.data = data;
+            this.left = left;
+            this.right = right;
+        }
+
+        //root of the binary tree
+        var root = null;
+
+        function add(data) {
+        //Create a new node with the given data
+            var newNode = new Node(data, null, null);
+            var current;
+            //If root is null, newNode becomes the root
+            if (root == null) {
+            //first node added becomes root
+                this.root = newNode;
+            }
+            else {
+            //start at the root
+                current = root;
+                while (true) {
+                    if (data < current.data) {
+                        //go left
+                        if (current.left == null) {
+                        //add node if there's no node
+                            current.left = newNode;
+                            break;
+                        } else {
+                        // go to current's left node to see where node can be added
+                            current = current.left;
+                        }
+                    }
+                    else if (data > current.data) {
+                    //go right
+                        if (current.right == null) {
+                        //add node if there's no node
+                            current.right = newNode;
+                            break;
+                        } else {
+                            // go to current's right node to see where node can be added
+                            current = current.right;
+                        } 
+                    }
+                    else{
+                        break;
+                    }
+                }
+            }
+        }
+
+        function preOrderTraversal(root) {
+            if (root == null) { return; }
+            console.log(root);
+            preOrderTraversal(root.left);
+            preOrderTraversal(root.right);
+        }
+
+        function inOrderTraversal(root) {
+            if (root == null) { return; }
+            inOrderTraversal(root.left);
+            console.log(root);
+            inOrderTraversal(root.right);
+        }
+
+        function postOrderTraversal(root) {
+            if (root == null) { return; }
+            postOrderTraversal(root.left);
+            inOrderTraversal(root.right);
+            console.log(root);
+        }
+
+        function lowestCommonAncestor(root, value1, value2) {
+        //The first Node whose data is between value1 and value2 is the Lowest Common Ancestor.
+        while(root != null){
+            var value = root.data;
+            if (value > value1 && value > value2) {
+            //go left
+                root = root.left;
+            }
+            else if (value < value1 && value < value2) {
+            //go right
+            root = root.right;
+            }
+        else {
+            //data is between value1 and value2
+                return root;
+            }
+        }
+        return false; //If tree is empty
+    }
+
+        //Build the tree by adding Nodes.
+        add(22);
+        add(10);
+        add(24);
+        add(6);
+        add(14);
+        add(12);
+        add(16);
+
+        //Tests
+        console.log("preOrderTraversal");
+        preOrderTraversal(this.root);
+        console.log("inOrderTraversal");
+        inOrderTraversal(this.root);
+        console.log("postOrderTraversal");
+        postOrderTraversal(this.root);
+        console.log("Lowest Common Ancestor");
+        console.log(lowestCommonAncestor(root, 6, 16));
+        
+// Output
+// preOrderTraversal
+
+// ({data:22, left:{data:10, left:{data:6, left:null, right:null}, right:{data:14, left:{data:12, left:null, right:null}, right:{data:16, left:null, right:null}}}, right:{data:24, left:null, right:null}})
+
+// ({data:10, left:{data:6, left:null, right:null}, right:{data:14, left:{data:12, left:null, right:null}, right:{data:16, left:null, right:null}}})
+
+// ({data:6, left:null, right:null})
+
+// ({data:14, left:{data:12, left:null, right:null}, right:{data:16, left:null, right:null}})
+
+// ({data:12, left:null, right:null})
+
+// ({data:16, left:null, right:null})
+
+// ({data:24, left:null, right:null})
+
+// inOrderTraversal
+
+// ({data:6, left:null, right:null})
+
+// ({data:10, left:{data:6, left:null, right:null}, right:{data:14, left:{data:12, left:null, right:null}, right:{data:16, left:null, right:null}}})
+
+// ({data:12, left:null, right:null})
+
+// ({data:14, left:{data:12, left:null, right:null}, right:{data:16, left:null, right:null}})
+
+// ({data:16, left:null, right:null})
+
+// ({data:22, left:{data:10, left:{data:6, left:null, right:null}, right:{data:14, left:{data:12, left:null, right:null}, right:{data:16, left:null, right:null}}}, right:{data:24, left:null, right:null}})
+
+// ({data:24, left:null, right:null})
+
+// postOrderTraversal
+
+// ({data:6, left:null, right:null})
+
+// ({data:12, left:null, right:null})
+
+// ({data:14, left:{data:12, left:null, right:null}, right:{data:16, left:null, right:null}})
+
+// ({data:16, left:null, right:null})
+
+// ({data:10, left:{data:6, left:null, right:null}, right:{data:14, left:{data:12, left:null, right:null}, right:{data:16, left:null, right:null}}})
+
+// ({data:24, left:null, right:null})
+
+// ({data:22, left:{data:10, left:{data:6, left:null, right:null}, right:{data:14, left:{data:12, left:null, right:null}, right:{data:16, left:null, right:null}}}, right:{data:24, left:null, right:null}})
+
+// Lowest Common Ancestor
+// ({data:10, left:{data:6, left:null, right:null}, right:{data:14, left:{data:12, left:null, right:null}, right:{data:16, left:null, right:null}}})
+        
+</script>
+</body>
+</html>
