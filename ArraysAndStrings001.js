@@ -1,5 +1,5 @@
 
-    / Find the first nonrepeated character in a string.
+   /* Find the first nonrepeated character in a string.
     * For, example the first nonrepeated character in 'total' is 'o',
     * and the first nonrepeated character in 'teeter' is 'r'.
     * Create an empty object to be used like a hashtable. myHashTable = {};
