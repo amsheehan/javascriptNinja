@@ -1,0 +1,91 @@
+<!DOCTYPE html />
+<html>
+<head>
+<title>Cross Browser Event Handling</title>
+<style type="text/css">
+#myDiv 
+{
+    background-color:Blue;
+    min-height:200px;
+    min-width:200px;
+    border-style:solid;
+    font-size:large;
+    color:White;    
+}
+</style>
+</head>
+<body>
+<h2>
+Events
+</h2>
+
+<div id="myDiv">
+Click inside the blue box to see the co-ordinates.
+<div id="display"></div>
+</div>
+<script type="text/javascript">
+
+    /*
+    This function attaches 'theHandler' function to an object
+    'theObject', when an event, 'theEvent' occurs.
+    'document.myFunction' returns true if the browser supports
+    'myFunction'.
+    */
+    function addEventHandler(theObject, theEvent, theHandler) {
+        //check if browser supports DOM Level 2
+        if (document.addEventListener) {
+            //'addEventListener' attaches 'theHandler' function to
+            // 'theEvent' event on the object 'theObject'. When the
+            // third argument to addEventListener is false the function
+            //supports event bubbling.
+            theObject.addEventListener(theEvent, theHandler, false);
+        }
+        else if (document.attachEvent) { // browser is IE
+            // Event names in IE start with 'on'
+            theObject.attachEvent("on" + theEvent, theHandler);
+        }
+    }
+
+    function getEvent(event) {
+        // returns the event
+        return event ? event : window.event;
+    }
+
+    function getTarget(event) {
+        //returns the element which caused the event
+        return event.target || event.srcElement;
+    }
+
+    function preventDefaultBehavior(event) {
+        if (event.preventDefault) {
+            // DOM Level 2
+            event.preventDefault();
+        } else {
+            // IE
+            event.returnValue = false;
+        }
+    }
+
+    function stopPropogation(event) {
+        if (event.stopPropagation) {
+            // DOM Level 2
+            event.stopPropagation();
+        } else {
+            // IE
+            event.cancelBubble = true;
+        }
+    }
+
+    function displayCoordinates(event) {
+        event = getEvent(event);
+        document.getElementById("display").innerHTML = "X Co-ordinate : " + event.clientX + " , Y Co-ordinate: " + event.clientY;
+    }
+
+    var myDiv = document.getElementById("myDiv");
+    // attach the function 'displayCoordinates' to the 'click' event
+    // on the element 'myDiv'
+    addEventHandler(myDiv, "click", displayCoordinates);
+
+</script>
+</body>
+</html>
