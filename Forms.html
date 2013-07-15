@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Forms</title>
+    <style type="text/css">
+    .formField
+    {
+        position:absolute;
+        left:150px;   
+                   
+    }
+    </style>
+</head>
+<body>
+<h2>
+Scripting Forms
+</h2>
+<form id="myForm" action="someServerScript.php" method="post">
+Username :
+ <input type="text" id="userName" name="userName" class="formField" required /><span id="userNameHelp"></span><br /><br />
+Password : 
+ <input type="password" id="passWord" name="passWord" class="formField" required /><span id="passWordHelp"></span><br /><br />
+Email :
+<input type="email" id="email" name="email" class="formField" required /><span id="emailHelp"></span><br /><br />
+Phone Number : 
+<input type="text" name="tel1" id="txtTel1"  maxlength="3" size="3" pattern="\d+" required/>
+<input type="text" name="tel2" id="txtTel2" maxlength="3" size="3" pattern="\d+" required/>
+<input type="text" name="tel3" id="txtTel3" maxlength="4" size="4" pattern="\d+" required/><span id="phoneHelp"></span><br /><br />
+<input type="submit" id="subButton" value="Submit Form" />
+
+</form>
+<p id="success"></p>
+<script type="text/javascript">
+    /*
+    The HTML5 attributes 'pattern', 'input type email', and 'required' 
+    do the data validation and display help messages.
+    This function attaches 'theHandler' function to an object
+    'theObject', when an event, 'theEvent' occurs.
+    'document.myFunction' returns true if the browser supports
+    'myFunction'.
+    */
+
+    // Cross Browser Function to add Event Handlers
+    function addEventHandler(theObject, theEvent, theHandler) {
+        
+        //check if browser supports DOM Level 2
+        if (document.addEventListener) {
+            //'addEventListener' attaches 'theHandler' function to
+            // 'theEvent' event on the object 'theObject'. When the
+            // third argument to addEventListener is false the function
+            //supports event bubbling.
+            theObject.addEventListener(theEvent, theHandler, false);
+        }
+        else if (document.attachEvent) { // browser is IE
+            // Event names in IE start with 'on'
+            theObject.attachEvent("on" + theEvent, theHandler);
+        }
+    }
+
+    // Cross Browser Function to get the event object
+    function getEvent(event) {
+        // returns the event
+        return event ? event : window.event;
+    }
+
+    // Cross Browser Function to get target element
+    function getTarget(event) {
+        //returns the element which caused the event
+        return event.target || event.srcElement;
+    }
+
+    // Cross Browser Function to prevent default behavior
+    function preventDefaultBehavior(event) {
+        if (event.preventDefault) {
+            // DOM Level 2
+            event.preventDefault();
+        } else {
+            // IE
+            event.returnValue = false;
+        }
+    }
+
+    // Function to validate data
+    function validation(event) {
+        // Disable Submit button to prevent repeat submission
+        document.getElementById("subButton").disabled = true;
+        // get the event object
+        event = getEvent(event);
+        // prevent form submission to validate data further
+        preventDefaultBehavior(event);
+
+        // The HTML5 attributes validate data as specified and
+        // display help messages. We can insert more validation here.
+
+        document.getElementById("success").innerHTML = "Data is Valid. Form can be submitted to server."
+        // submit the form after data is valid
+        // theForm.submit();
+    }
+
+    
+
+    // function to move focus to the next textbox
+    function tabForward(event) {
+    // get the event
+        event = getEvent(event); 
+        // get the target textbox
+        var target = getTarget(event);
+        // if textbox is full
+        if (target.value.length == target.maxLength) {
+            var form = target.form;
+            for (var i = 0; i < form.elements.length; i++ ) {
+                if (form.elements[i] == target) {
+                    if (form.elements[i + 1]) {
+                    //move focus to the next element
+                        form.elements[i + 1].focus();
+                    }
+                    // exit the function
+                    return;
+                }
+            }
+        }
+    }
+
+    var textbox1 = document.getElementById("txtTel1");
+    
+var textbox2 = document.getElementById("txtTel2");
+var textbox3 = document.getElementById("txtTel3");
+addEventHandler(textbox1, "keyup", tabForward);
+addEventHandler(textbox2, "keyup", tabForward);
+addEventHandler(textbox3, "keyup", tabForward);
+
+var theForm = document.getElementById("myForm");
+
+// attach  the 'validation' function to the form's 'submit' event
+addEventHandler(theForm, "submit", validation);
+</script>
+</body>
+</html>
